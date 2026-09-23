@@ -11,7 +11,7 @@ description: Answers questions about Coke老师语录、口头禅、名场面与
 
 以下路径均相对于本 skill 目录（即本文件所在目录），整个 skill 文件夹可整体复制或克隆到任意 Agent 的 skills 目录：
 
-- `coke-corpus/quotes.jsonl` —— 权威数据源，每行一条 JSON，共 39 条（q0001–q0039），字段如下：
+- `coke-corpus/quotes.jsonl` —— 权威数据源，每行一条 JSON，共 40 条（q0001–q0040），字段如下：
 
 | 字段 | 含义 |
 |---|---|

@@ -7,7 +7,7 @@
 ![Skill](https://img.shields.io/badge/skill-coke--skill-7F1D1D?style=for-the-badge)
 ![Version](https://img.shields.io/badge/version-v0.1.0-F97316?style=for-the-badge)
 ![License](https://img.shields.io/badge/license-MIT-DC2626?style=for-the-badge)
-![Quotes](https://img.shields.io/badge/quotes-39%20%7C%2020%20verified-1D4ED8?style=for-the-badge)
+![Quotes](https://img.shields.io/badge/quotes-40%20%7C%2020%20verified-1D4ED8?style=for-the-badge)
 
 **Language / 语言:** [简体中文](#简体中文) | [English](#english)
 
@@ -23,8 +23,8 @@ coke-skill 是一个遵循 [Agent Skills](https://docs.anthropic.com/en/docs/age
 
 | 核心亮点 | 表现 |
 |---|---|
-| 🔗 句句有出处 | 39 条语录全部附来源链接，媒体稿、百科词条、原视频切片分类可查 |
-| ✅ 核实分级 | 已核实 20 条 / 待核实 19 条，置信度 0–1 打分，弱证据主动提示 |
+| 🔗 句句有出处 | 40 条语录全部附来源链接，媒体稿、百科词条、原视频切片分类可查 |
+| ✅ 核实分级 | 已核实 20 条 / 待核实 20 条，置信度 0–1 打分，弱证据主动提示 |
 | ⚖️ 争议不回避 | 「我嘞个骚刚啊」归属存在@鸽子神之争，会把双方证据都摆出来 |
 | 🐱 梗脉讲得清 | 「小猫老弟」←「喜欢吗，老弟」，空耳、变体、称号之间的关系一目了然 |
 | 📦 零依赖开箱 | 纯 Markdown + JSONL，Claude Code / TRAE / Codex 复制即用 |
@@ -116,8 +116,8 @@ coke-skill/
 ├── agents/
 │   └── openai.yaml             # Codex/OpenAI 界面元数据
 ├── coke-corpus/
-│   └── quotes.jsonl            # 权威数据源（每行一条 JSON，共 39 条）
-├── Coke老师语录合集.md          # 全量人类可读版（39 条）
+│   └── quotes.jsonl            # 权威数据源（每行一条 JSON，共 40 条）
+├── Coke老师语录合集.md          # 全量人类可读版（40 条）
 ├── 公开版-语录合集.md           # 对外分享版（仅媒体强来源，21 条）
 ├── Coke老师语录卡片.html        # 展示卡片
 └── 公开版-语录卡片.html
@@ -165,8 +165,8 @@ coke-skill/
 
 | Highlight | What You Get |
 |---|---|
-| 🔗 Every line sourced | All 39 entries carry source links: media articles, wiki entries, or original video clips |
-| ✅ Verification tiers | 20 verified / 19 pending, each scored 0–1 with weak evidence flagged |
+| 🔗 Every line sourced | All 40 entries carry source links: media articles, wiki entries, or original video clips |
+| ✅ Verification tiers | 20 verified / 20 pending, each scored 0–1 with weak evidence flagged |
 | ⚖️ Disputes surfaced | The "我嘞个骚刚啊" attribution dispute (@鸽子神 vs coke) is presented with evidence from both sides |
 | 🐱 Meme lineage mapped | "小猫老弟" ← "喜欢吗，老弟": homophones, variants, and nicknames kept distinct |
 | 📦 Zero dependencies | Plain Markdown + JSONL; drop into Claude Code, TRAE, or Codex and go |
@@ -240,7 +240,7 @@ A personal, non-commercial research archive. Spoken content belongs to its creat
 | Version | `0.1.0` |
 | Language / 语言 | [简体中文](#简体中文) / [English](#english) |
 | License | MIT（代码与文档；语料内容归原权利人所有） |
-| Corpus | 39 entries · 20 verified / 19 pending · last updated 2026-09-23 |
+| Corpus | 40 entries · 20 verified / 20 pending · last updated 2026-09-23 |
 | Primary files | `SKILL.md`, `agents/openai.yaml`, `coke-corpus/quotes.jsonl` |
 
 ### Topics
