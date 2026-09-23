@@ -1,5 +1,5 @@
 ---
-name: coke-quotes
+name: coke-skill
 description: Answers questions about Coke老师语录、口头禅、名场面与梗（出处、场景、变体）from the local verified corpus. Use when users ask about a Coke quote or its source; never fabricate quotes.
 ---
 
