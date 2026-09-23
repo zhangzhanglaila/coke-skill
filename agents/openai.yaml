@@ -1,4 +1,4 @@
 interface:
   display_name: "Coke Skill"
-  short_description: "Source-linked Q&A about Coke老师 quotes and memes from a local corpus"
-  default_prompt: "Use $coke-skill to answer a question about a Coke老师 quote, its scene, or its source, using only the local verified corpus."
+  short_description: "Source-linked Q&A about Coke老师 quotes and memes, plus optional in-character chat, from a local verified corpus"
+  default_prompt: "Use $coke-skill in research mode to answer questions about a Coke老师 quote, its scene, or its source using only the local verified corpus; if the user explicitly asks to roleplay as coke, switch to persona mode per SKILL.md."
