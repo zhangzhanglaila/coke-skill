@@ -1,19 +1,13 @@
 # 🐱 coke-skill · 让 AI 变成「Coke老师」陪你聊天
 
-| 简体中文 | English |
-|---|---|
-| 装好后对 AI 说一句「扮演 coke」，它就用 Coke老师 痞帅抽象的语气跟你对话——叫你老弟、输了甩「汗流浃背了吧」、装帅先来一句 "Hey, girl!"；语气全部来自一份 **40 条真实语录的考据语料**，只化用、不瞎编。顺带还能严谨考据每句梗的出处。 | Say "roleplay as coke" and your AI chats back in the cheeky, absurdist voice of Chinese streamer Coke老师 — calling you 老弟, trash-talking with his real catchphrases. The persona is grounded in a **40-entry verified quote corpus** (reuse, never invent), and the same corpus also powers source-backed meme research as a bonus. |
+装好后对 AI 说一句「扮演 coke」，它就用 Coke老师 痞帅抽象的语气跟你对话——叫你老弟、输了甩「汗流浃背了吧」、装帅先来一句 "Hey, girl!"；语气全部来自一份 **40 条真实语录的考据语料**，每处化用都有原句可循。顺带还能严谨考据每句梗的出处。
 
 ![Skill](https://img.shields.io/badge/skill-coke--skill-7F1D1D?style=for-the-badge)
 ![Mode](https://img.shields.io/badge/mode-persona%20first-F97316?style=for-the-badge)
 ![License](https://img.shields.io/badge/license-MIT-DC2626?style=for-the-badge)
 ![Quotes](https://img.shields.io/badge/voice%20corpus-40%20%7C%2020%20verified-1D4ED8?style=for-the-badge)
 
-**Language / 语言:** [简体中文](#简体中文) | [English](#english)
-
 ---
-
-## 简体中文
 
 ### 它是什么
 
@@ -155,143 +149,30 @@ coke-skill/
 
 ---
 
-## English
+## 仓库信息
 
-### What It Is
-
-> Other AIs improvise a celebrity impression. This one's every bit of swagger is traceable to a sourced quote.
-
-**coke-skill** is a portable [Agent Skills](https://docs.anthropic.com/en/docs/agents-and-tools/agent-skills)-compatible package whose main act is **persona chat**: your AI talks, jokes, and banters in the signature voice of **Coke老师**, a top *Naruto* mobile-game streamer on Douyin. Unlike a random "act like an influencer" prompt, the persona is grounded in a hand-verified 40-entry quote corpus — every reused mannerism maps to a real attested line. As a **bonus**, asking "where is that line from?" mid-chat instantly drops character and returns a sourced, rigorous answer.
-
-### The Voice
-
-| Trait | Corpus evidence |
+| 项目 | 内容 |
 |---|---|
-| 👊 Calls you 老弟, provokes with a grin | "汗流浃背了吧，老弟" (Baidu Baike entry) |
-| 🦁 Tough talk one second, instant face-change the next | "你已经激怒了一头雄狮" vs pro player 小豪; "包变脸的老弟" |
-| 💅 English one-liners when showing off | "Hey, girl!" lianmai opening |
-| 📖 Blissful idiom misuse | Calmly declaring "凶多吉少" before a 3-vs-6 PK |
-| 🐱 Abstract "little cat" identity on standby | "小猫老弟" (homophone of "喜欢吗，老弟"); instant cat-mode with a teaser wand |
-| 🌀 Naruto references on tap | "阿玛特拉斯" (homophone of Amaterasu) and other livestream moments |
-
-### Highlights
-
-| Highlight | What You Get |
-|---|---|
-| 🎭 **Persona-first** | "Roleplay as coke" drops into character immediately; voice, address, and meme density follow explicit persona rules in SKILL.md — not a one-line system prompt |
-| 🧠 Swagger backed by data | 40 sourced quotes; roleplay reuses only attested phrasing, never plausible-sounding fakes |
-| 🔗 Banter ↔ research in one sentence | Asking a source question mid-chat instantly drops character with links, date, and scene; "stop roleplaying" exits anytime |
-| ⚖️ Disputed memes stay benched | The contested "我嘞个骚刚啊" (@鸽子神 attribution dispute) is explicitly off-limits as a signature line |
-| 🛡️ Guardrails built in | First reply discloses the AI imitation; never claims to be the real person, attack other streamers, leak privacy, or sell anything |
-| 📦 Zero dependencies | Plain Markdown + JSONL; drop into Claude Code, TRAE, or Codex and go |
-
-### Quick Start
-
-Clone as **`coke-skill`** (folder name must match the `name` in `SKILL.md`) into your agent's skills directory:
-
-```bash
-git clone https://github.com/zhangzhanglaila/coke-skill.git ~/.claude/skills/coke-skill
-```
-
-Paths: Claude Code → `~/.claude/skills/` · TRAE CN global → `~/.trae-cn/skills/` · TRAE project → `<project>/.trae/skills/` · Codex → its documented skills folder.
-
-**Persona mode** (enters only on an explicit request):
-
-```text
-Roleplay as coke and chat with me.
-Reply like coke: my boss chewed me out at work today.
-You are coke now — 1v1 me in Naruto.
-Stop roleplaying.            ← exit persona
-```
-
-**Research mode** (bonus; just ask):
-
-```text
-Where does "汗流浃背了吧，老弟" come from?
-What meme is "小猫老弟", and how does it relate to "喜欢吗，老弟"?
-Is "阿玛特拉斯" a Japanese homophone? When did it blow up?
-Which quotes are still pending verification?
-```
-
-### Example
-
-Persona mode — you say "I lost three games in a row, I'm tilted":
-
-```text
-(AI imitation of coke's style — not the real person)
-
-Three losses? 汗流浃背了吧老弟. A lion never reviews his defeats —
-he just queues the next match. Log on; let's see who's bold enough
-to leave you this 凶多吉少.
-```
-
-Follow up "did he really say the lion line?" → instantly switches to research:
-
-```text
-✅ Verified — "你已经激怒了一头雄狮": while matched live against five-time
-pro champion 小豪, trash-talking then instantly changing face ("小豪杀手"
-moment). Source: ClauRay article republished by Phoenix (corpus q0027, link attached).
-```
-
-Contested quotes stay honest:
-
-```text
-⚠️ Pending (0.65), attribution dispute — "我嘞个骚刚啊": media credit coke,
-but a meme-wiki investigation traces the voice to streamer @鸽子神; their
-voices sound alike. Both sides reported; original video needed to settle it.
-```
-
-### When To Use
-
-- An on-point absurdist chat buddy to banter and trash-talk you in-character.
-- Writing coke-style copy, skits, or fan content **without misattribution** (attested lines only).
-- Bonus research: sourcing a meme's origin/date/scene, or separating original lines, homophones, and nicknames.
-
-### When Not To Use
-
-- The persona is a **style imitation**, not the real person: no real opinions, business replies, contact info, or whereabouts.
-- AI-generated lines are never presented as things he "really said" and never enter the verified corpus.
-- No livestream replays, video downloads, or real-time platform data.
-- Not affiliated with The Coca-Cola Company.
-
-### Design Principles
-
-- Persona can be performed; facts cannot be invented — roleplay reuses attested phrasing only.
-- First reply discloses the AI imitation; real-person/privacy/business topics break character immediately.
-- "Not in the corpus" beats a plausible-sounding fake, every time.
-- Machine-friendly data (JSONL), human-friendly reading (Markdown collections).
-
-### Disclaimer
-
-A personal, non-commercial research project. The persona is an unofficial imitation of public speech style, with no affiliation to Coke老师 or his agencies. Spoken content belongs to its creators and platforms; every entry is attributed and can be removed on request via an issue. Code and documentation are released under the MIT License. Not affiliated with The Coca-Cola Company.
-
----
-
-## GitHub Repository Metadata
-
-| Item | Value |
-|---|---|
-| Repository | [`zhangzhanglaila/coke-skill`](https://github.com/zhangzhanglaila/coke-skill) |
-| Skill name | `coke-skill` |
-| Display name | Coke Persona / Coke老师人设陪聊（附语录考据） |
-| Version | `0.1.0` |
-| Language / 语言 | [简体中文](#简体中文) / [English](#english) |
-| License | MIT（代码与文档；语料内容归原权利人所有） |
-| Voice corpus | 40 entries · 20 verified / 20 pending · last updated 2026-09-23 |
-| Primary files | `SKILL.md`, `agents/openai.yaml`, `coke-corpus/quotes.jsonl` |
+| 仓库 | [`zhangzhanglaila/coke-skill`](https://github.com/zhangzhanglaila/coke-skill) |
+| Skill 名称 | `coke-skill` |
+| 展示名 | Coke老师人设陪聊（附语录考据） |
+| 版本 | `0.1.0` |
+| 许可证 | MIT（代码与文档；语料内容归原权利人所有） |
+| 语料 | 40 条 · 已核实 20 / 待核实 20 · 最近更新 2026-09-23 |
+| 主要文件 | `SKILL.md`、`agents/openai.yaml`、`coke-corpus/quotes.jsonl` |
 
 ### Topics
 
-`agent-skill` · `claude-skill` · `trae-skill` · `codex-skill` · `persona` · `roleplay` · `virtual-companion` · `chinese-memes` · `douyin` · `naruto-mobile` · `coke` · `corpus` · `bilingual`
+`agent-skill` · `claude-skill` · `trae-skill` · `codex-skill` · `persona` · `roleplay` · `virtual-companion` · `chinese-memes` · `douyin` · `naruto-mobile` · `coke` · `corpus`
 
-### Stats
+### 数据
 
 ![GitHub stars](https://img.shields.io/github/stars/zhangzhanglaila/coke-skill?style=social)
 ![GitHub forks](https://img.shields.io/github/forks/zhangzhanglaila/coke-skill?style=social)
 ![GitHub last commit](https://img.shields.io/github/last-commit/zhangzhanglaila/coke-skill)
 
-### Notes
+### 说明
 
-- This repository is a Skill package, not an npm package.
-- The README is user-facing; persona rules, mode switching, and research rules live in `SKILL.md`.
-- Persona output is AI style imitation; quote content is collected for non-commercial research with attribution; the MIT License covers code and documentation only.
+- 本仓库是一个 Skill 包，不是 npm 包。
+- README 面向使用者；人设规则、模式切换与考据规则写在 `SKILL.md` 中。
+- 人设产出为 AI 风格模仿；语录内容仅作非商业研究并逐条标注出处，MIT 许可证仅覆盖代码与文档。
