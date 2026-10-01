@@ -14,3 +14,9 @@ desktop.ini
 
 # WorkBuddy agent workspace memory (not for public repo)
 .workbuddy/
+
+# 采集工具链运行时产物（可随时重建，不入库）
+coke-corpus/raw/
+coke-corpus/candidates-*.jsonl
+coke-corpus/crawl-log.jsonl
+coke-corpus/plan-*.md

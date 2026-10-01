@@ -124,7 +124,7 @@ git clone https://github.com/zhangzhanglaila/coke-skill.git ~/.claude/skills/cok
 
 ```text
 coke-skill/
-├── SKILL.md                    # 技能入口：人设扮演规则 + 模式切换 + 考据流程
+├── SKILL.md                    # 技能入口：人设扮演规则 + 模式切换 + 考据流程 + 语料维护
 ├── README.md                   # 本文件
 ├── LICENSE                     # MIT
 ├── agents/
@@ -135,10 +135,17 @@ coke-skill/
 │   └── index.html              # ⚡ 雷霆语言系统语录机（单文件、零依赖，可直接开 GitHub Pages）
 ├── assets/
 │   └── banner.svg              # README 顶部霓虹横幅
-├── Coke老师语录合集.md          # 全量人类可读版（40 条）
-├── 公开版-语录合集.md           # 对外分享版（仅媒体强来源，21 条）
-├── Coke老师语录卡片.html        # 展示卡片
-└── 公开版-语录卡片.html
+├── scripts/                    # 采集与语料维护工具链（纯标准库）
+│   ├── plan.py                 #   采集任务清单（平台 × 检索词）
+│   ├── fetch_page.py           #   抓公开静态页
+│   ├── harvest.py              #   从页面抽取候选语录并打分
+│   └── corpus.py               #   语料库管理：add/search/stats/verify/dedupe/export
+├── references/                 # 采集规则、检索词、人设风格、合规清单
+└── exports/                    # 由 quotes.jsonl 生成的展示物（可随时重新导出）
+    ├── Coke老师语录合集.md      #   全量人类可读版（40 条）
+    ├── 公开版-语录合集.md       #   对外分享版（仅已核实，20 条）
+    ├── Coke老师语录卡片.html    #   全量卡片页
+    └── 公开版-语录卡片.html     #   对外分享卡片页
 ```
 
 ### 语料字段与收录原则

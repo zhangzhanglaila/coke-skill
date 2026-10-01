@@ -36,8 +36,19 @@ description: Coke老师人设陪聊 skill。用户说「扮演coke」「用coke�
 | `notes` | 备注，含待核实原因、归属争议等关键信息 |
 | `added_at` | 入库时间，仅供维护，不对用户展示 |
 
-- `Coke老师语录合集.md` —— 按分类组织的人类可读版，需要浏览全部或某分类时使用；`公开版-语录合集.md` 用于对外分享。
-- `Coke老师语录卡片.html` 与 `公开版-语录卡片.html` 是语录卡片展示页，仅供展示，不作为信息来源。
+- `exports/Coke老师语录合集.md` —— 按分类组织的人类可读版，需要浏览全部或某分类时使用；`exports/公开版-语录合集.md` 用于对外分享。
+- `exports/` 下另有全量/公开版语录卡片 HTML，仅供展示，不作为信息来源；互动版见 `demo/index.html`。
+
+## 语料维护（采集 → 复核 → 导出）
+
+本 skill 自带采集与维护工具链（`scripts/`，纯 Python 标准库，无第三方依赖）：
+
+- `scripts/plan.py` —— 生成采集任务清单（平台 × 检索词），标记已采集
+- `scripts/fetch_page.py` —— 抓公开静态页存 `coke-corpus/raw/`；抖音/小红书等动态页用浏览器工具人工浏览，策略见 `references/sources.md`
+- `scripts/harvest.py` —— 从 raw/ 抽取候选句并打分，人工复核后 `corpus.py import` 入库
+- `scripts/corpus.py` —— 语料库管理：`add / search / stats / verify / dedupe / export`（`export --public` 生成对外分享版）
+
+规则与边界见 `references/`：`sources.md`（平台清单与合规）、`queries.md`（检索词表）、`extraction-rules.md`（判定与置信度分级）、`persona.md`（语言风格样本）、`legal-notes.md`（公开发布前必读）。运行时产物（raw/、candidates、plan 清单）已 gitignore，不入库。
 
 ## 人设模式：扮演规则（主打）
 
