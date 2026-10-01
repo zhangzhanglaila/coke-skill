@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>雷霆语言系统 · Coke老师语录机</title>
+<meta name="description" content="Coke老师（蒋帅）语录随机机：20 条已核实语录逐条带出处，点一下，触发保底机制。">
+<style>
+  :root{
+    --bg:#0e0e13; --bg2:#16161f; --card:#1c1c28;
+    --red:#FE2C55; --cyan:#25F4EE; --ink:#f2f2f5; --muted:#8b8b98;
+    --line:rgba(255,255,255,.08);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{
+    background:var(--bg); color:var(--ink); overflow-x:hidden;
+    font-family:"PingFang SC","Microsoft YaHei",-apple-system,sans-serif;
+  }
+  /* 背景光斑 + 网格 */
+  .glow{position:fixed;border-radius:50%;filter:blur(120px);opacity:.35;pointer-events:none;z-index:0}
+  .glow.a{width:520px;height:520px;background:var(--red);top:-160px;left:-120px}
+  .glow.b{width:460px;height:460px;background:var(--cyan);bottom:-140px;right:-100px;opacity:.22}
+  .grid-bg{position:fixed;inset:0;z-index:0;pointer-events:none;
+    background-image:linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),
+                     linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px);
+    background-size:44px 44px;
+    mask-image:radial-gradient(ellipse at 50% 30%,#000 30%,transparent 75%);
+  }
+  /* 弹幕 */
+  .danmaku{position:fixed;inset:0;z-index:1;pointer-events:none;overflow:hidden}
+  .dm{position:absolute;white-space:nowrap;color:rgba(255,255,255,.14);
+      font-size:15px;letter-spacing:1px;animation:fly linear infinite}
+  .dm b{color:rgba(37,244,238,.35);font-weight:600}
+  @keyframes fly{from{transform:translateX(100vw)}to{transform:translateX(-100%)}}
+
+  main{position:relative;z-index:2;max-width:880px;margin:0 auto;padding:56px 20px 80px}
+
+  /* Hero */
+  .badge{display:inline-flex;gap:8px;align-items:center;font-size:13px;color:var(--muted);
+    border:1px solid var(--line);border-radius:999px;padding:6px 14px;backdrop-filter:blur(6px)}
+  .badge i{width:7px;height:7px;border-radius:50%;background:var(--cyan);
+    box-shadow:0 0 8px var(--cyan);animation:blink 1.6s infinite}
+  @keyframes blink{50%{opacity:.25}}
+  h1{margin:18px 0 6px;font-size:clamp(40px,7vw,68px);font-weight:800;letter-spacing:2px;line-height:1.1;
+    background:linear-gradient(92deg,var(--red) 20%,#fff 50%,var(--cyan) 80%);
+    -webkit-background-clip:text;background-clip:text;color:transparent}
+  h1 .zh{font-style:italic}
+  .sub{color:var(--muted);font-size:15px;max-width:520px;line-height:1.7}
+  .sub b{color:#d7d7e0}
+
+  /* 语录卡 */
+  .stage{margin-top:44px;position:relative}
+  .card{
+    position:relative;background:linear-gradient(160deg,rgba(254,44,85,.10),rgba(28,28,40,.9) 40%,rgba(37,244,238,.08));
+    border:1px solid var(--line);border-radius:24px;padding:44px 40px 34px;
+    backdrop-filter:blur(10px);min-height:300px;display:flex;flex-direction:column;
+    transition:border-color .3s, box-shadow .3s;
+  }
+  .card.hit{animation:shake .45s cubic-bezier(.36,.07,.19,.97)}
+  @keyframes shake{
+    10%,90%{transform:translateX(-2px)} 20%,80%{transform:translateX(3px)}
+    30%,50%,70%{transform:translateX(-5px)} 40%,60%{transform:translateX(5px)}
+  }
+  .quote-mark{position:absolute;top:14px;left:26px;font-size:90px;line-height:1;
+    font-family:Georgia,serif;color:var(--red);opacity:.35;user-select:none}
+  .quote{
+    margin-top:26px;font-size:clamp(26px,4.6vw,44px);font-weight:800;line-height:1.45;
+    letter-spacing:1px;text-shadow:0 0 24px rgba(254,44,85,.25);
+  }
+  .quote.glitch{animation:glitch .35s steps(2)}
+  @keyframes glitch{
+    0%{text-shadow:3px 0 var(--red),-3px 0 var(--cyan)}
+    50%{text-shadow:-3px 2px var(--red),3px -2px var(--cyan)}
+    100%{text-shadow:0 0 24px rgba(254,44,85,.25)}
+  }
+  .meta{margin-top:auto;padding-top:26px;display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+  .chip{font-size:12px;padding:4px 12px;border-radius:999px;border:1px solid var(--line);color:var(--muted)}
+  .chip.type{color:var(--cyan);border-color:rgba(37,244,238,.35)}
+  .chip.ok{color:#5be49b;border-color:rgba(91,228,155,.35)}
+  .chip.warn{color:#f5b563;border-color:rgba(245,181,99,.35)}
+  .conf{font-size:12px;color:var(--muted);margin-left:auto}
+  .conf b{color:#fff}
+
+  /* 按钮 */
+  .actions{margin-top:22px;display:flex;gap:12px;flex-wrap:wrap}
+  .btn{
+    border:none;cursor:pointer;font-family:inherit;font-weight:700;letter-spacing:2px;
+    border-radius:14px;padding:16px 30px;font-size:17px;color:#fff;
+    background:linear-gradient(135deg,var(--red),#ff5f7e);
+    box-shadow:0 8px 28px rgba(254,44,85,.35),inset 0 1px 0 rgba(255,255,255,.25);
+    transition:transform .12s, box-shadow .2s;
+  }
+  .btn:hover{transform:translateY(-2px);box-shadow:0 12px 34px rgba(254,44,85,.5)}
+  .btn:active{transform:scale(.96)}
+  .btn.ghost{
+    background:rgba(255,255,255,.06);border:1px solid var(--line);color:var(--ink);
+    box-shadow:none;font-weight:600;font-size:15px;padding:16px 20px;
+  }
+  .btn.ghost:hover{border-color:rgba(37,244,238,.5);color:var(--cyan)}
+  kbd{font-size:11px;border:1px solid var(--line);border-bottom-width:2px;border-radius:5px;
+    padding:1px 6px;color:var(--muted);margin-left:8px}
+
+  /* 考据面板 */
+  .proof{max-height:0;overflow:hidden;transition:max-height .45s ease,margin .45s ease}
+  .proof.open{max-height:420px;margin-top:18px}
+  .proof-inner{border:1px solid var(--line);border-radius:16px;padding:20px 22px;
+    background:rgba(255,255,255,.03);font-size:14px;line-height:1.9;color:#cfcfda}
+  .proof-inner .k{color:var(--muted);display:inline-block;min-width:64px}
+  .proof-inner a{color:var(--cyan);text-decoration:none;word-break:break-all}
+  .proof-inner a:hover{text-decoration:underline}
+  .tagline{font-size:12px;color:var(--muted);margin-top:8px}
+
+  /* 筛选 */
+  .filters{margin-top:44px;display:flex;gap:8px;flex-wrap:wrap}
+  .fchip{cursor:pointer;font-size:13px;padding:7px 16px;border-radius:999px;
+    border:1px solid var(--line);color:var(--muted);background:transparent;transition:all .2s}
+  .fchip:hover{color:#fff;border-color:rgba(255,255,255,.3)}
+  .fchip.on{background:var(--red);border-color:var(--red);color:#fff;font-weight:600}
+
+  /* 全部语录网格 */
+  .grid{margin-top:20px;display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px}
+  .mini{
+    cursor:pointer;background:var(--card);border:1px solid var(--line);border-radius:14px;
+    padding:16px 16px 12px;transition:transform .15s,border-color .2s;
+  }
+  .mini:hover{transform:translateY(-3px);border-color:rgba(254,44,85,.5)}
+  .mini .t{font-size:15px;font-weight:600;line-height:1.55}
+  .mini .f{margin-top:10px;font-size:11px;color:var(--muted);display:flex;gap:6px;flex-wrap:wrap}
+  .hidden{display:none!important}
+
+  /* 统计 */
+  .stats{margin-top:48px;display:flex;gap:12px;flex-wrap:wrap}
+  .stat{flex:1;min-width:140px;border:1px solid var(--line);border-radius:16px;padding:18px;text-align:center;background:rgba(255,255,255,.02)}
+  .stat b{display:block;font-size:30px;font-weight:800;
+    background:linear-gradient(90deg,var(--red),var(--cyan));
+    -webkit-background-clip:text;background-clip:text;color:transparent}
+  .stat span{font-size:12px;color:var(--muted)}
+
+  footer{margin-top:60px;padding-top:24px;border-top:1px solid var(--line);
+    font-size:12px;color:var(--muted);line-height:2}
+  footer a{color:var(--cyan);text-decoration:none}
+
+  .toast{position:fixed;left:50%;bottom:36px;transform:translateX(-50%) translateY(20px);
+    background:var(--cyan);color:#062b2a;font-weight:700;padding:10px 22px;border-radius:999px;
+    opacity:0;transition:all .3s;z-index:9;pointer-events:none}
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+</style>
+</head>
+<body>
+<div class="glow a"></div><div class="glow b"></div><div class="grid-bg"></div>
+<div class="danmaku" id="danmaku"></div>
+
+<main>
+  <span class="badge"><i></i> 雷霆语言系统 · 已收录 <b id="total">0</b> 条已核实语录</span>
+  <h1><span class="zh">触发</span>保底机制</h1>
+  <p class="sub">Coke老师（蒋帅）说过的每句话，这里都查得到出处。
+    <b>不编造、不脑补</b>——点一下，随机爆一条；再点「考据」，看场景、出处和核实状态。</p>
+
+  <div class="stage">
+    <div class="card" id="card">
+      <div class="quote-mark">“</div>
+      <div class="quote" id="quote">汗流浃背了吧，老弟</div>
+      <div class="meta">
+        <span class="chip type" id="qtype">口头禅</span>
+        <span class="chip ok" id="qok">✔ 已核实</span>
+        <span class="conf">置信度 <b id="qconf">0.95</b></span>
+      </div>
+    </div>
+
+    <div class="actions">
+      <button class="btn" id="fire">⚡ 触发保底机制<kbd>空格</kbd></button>
+      <button class="btn ghost" id="copy">📋 复制这句</button>
+      <button class="btn ghost" id="proofBtn">🔍 考据一下</button>
+      <button class="btn ghost" id="shareBtn">🔗 分享链接</button>
+    </div>
+
+    <div class="proof" id="proof">
+      <div class="proof-inner">
+        <div><span class="k">场景</span><span id="p-scene">—</span></div>
+        <div><span class="k">平台 / 时间</span><span id="p-plat">—</span></div>
+        <div><span class="k">出处</span><a id="p-src" href="#" target="_blank" rel="noopener">—</a></div>
+        <div class="tagline" id="p-tags"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="filters" id="filters"></div>
+  <div class="grid" id="grid"></div>
+
+  <div class="stats">
+    <div class="stat"><b id="s-total">20</b><span>已核实语录</span></div>
+    <div class="stat"><b id="s-types">8</b><span>分类覆盖</span></div>
+    <div class="stat"><b id="s-viral">3</b><span>出圈梗</span></div>
+    <div class="stat"><b>100%</b><span>逐条附出处</span></div>
+  </div>
+
+  <footer>
+    本页为 coke-skill 语料库的在线演示 · 数据为个人学习与非商业研究性质的摘录，每条均标注出处，口述内容著作权归原作者所有 ·
+    与 Coke老师 本人及可口可乐公司无关 · <a href="https://github.com/zhangzhanglaila/coke-skill" target="_blank" rel="noopener">GitHub 仓库 ↗</a>
+  </footer>
+</main>
+
+<div class="toast" id="toast">已复制</div>
+
+<script>
+const QUOTES = [
+{id:"q0001",text:"汗流浃背了吧，老弟",type:"口头禅",scene:"对局击败对手之后，嘲讽对方疲于应付",platform:"抖音直播",date:"2023-10",tags:["嘲讽","火影","出圈梗"],confidence:0.95,source_url:"https://baike.baidu.com/item/%E6%B1%97%E6%B5%81%E6%B5%83%E8%83%8C%E4%BA%86%E5%90%A7%EF%BC%8C%E8%80%81%E5%BC%9F/65259672"},
+{id:"q0002",text:"喜欢吗，老弟",type:"口头禅",scene:"直播秀完操作后问观众，语速快被空耳成「小猫老弟」",platform:"抖音直播",date:"2023",tags:["口头禅","空耳源头"],confidence:0.9,source_url:"https://h5.ifeng.com/c/vivoArticle/v002eWYvI3zbFGhljhBnDT5oa6JIazO5O6vbiOurOwAHnEs__"},
+{id:"q0006",text:"阿玛特拉斯",type:"口头禅",scene:"模仿火影宇智波一族释放天照时的台词，贴近麦克风的仪式感配音（天照日语空耳，也作「阿玛忒拉斯」）",platform:"抖音直播",date:"2025-01",tags:["火影","配音","出圈梗"],confidence:0.95,source_url:"https://shouyoujz.com/archives/78975"},
+{id:"q0007",text:"我痞吗",type:"名场面",scene:"《OK了老铁们》第二季演讲环节，上台后看着台下说三个字，当场「大痞全场」",platform:"综艺",date:"2025",tags:["痞帅","综艺","名场面"],confidence:0.9,source_url:"https://weibo.com/2239402020/RfH1GgvZa"},
+{id:"q0008",text:"不会是按痞帅魅力值排的吧？",type:"综艺",scene:"《OK了老铁们》第二季，大家猜出场顺序时一本正经抛出理由",platform:"综艺",date:"2025",tags:["痞帅","自嘲","综艺"],confidence:0.9,source_url:"https://weibo.com/2239402020/RfH1GgvZa"},
+{id:"q0009",text:"那吃美了怎么办？",type:"直播",scene:"和花小龙直播卖羊肉，工作人员讲完售后包赔后他冷不丁插话，一句话把正经流程拐到外太空",platform:"抖音直播",date:"2024",tags:["荒诞追问","卖货"],confidence:0.85,source_url:"https://weibo.com/2239402020/RfH1GgvZa"},
+{id:"q0010",text:"凶多吉少",type:"连麦PK",scene:"和斩虍、刘回三人组队，对面六个女生，他给自家队伍下定义——字面没错、语境全错",platform:"抖音直播",date:"2025",tags:["成语误用","连麦PK"],confidence:0.9,source_url:"https://weibo.com/2239402020/RfH1GgvZa"},
+{id:"q0013",text:"哎怎么有逗猫棒，咪咪最喜欢了",type:"连麦PK",scene:"和陈泽连麦，对方掏出逗猫棒，他 0 秒入戏小猫身份",platform:"抖音直播",date:"2024",tags:["零秒入戏","接梗"],confidence:0.9,source_url:"https://weibo.com/2239402020/RfH1GgvZa"},
+{id:"q0014",text:"上面写着低领，低领",type:"名场面",scene:"拆女粉来信，把信封上的「To: coke」念成「T0」，以为在夸自己 T0 级别——信里内容只有一个「史」字",platform:"抖音",date:"2024",tags:["名场面","空耳","T0梗"],confidence:0.85,source_url:"https://www.douyin.com/shipin/7644029833692956681"},
+{id:"q0016",text:"大痞天下",type:"口头禅",scene:"与粉丝互动、接梗时使用的话术，与「我痞吗兄弟」同批",platform:"抖音",date:"2025",tags:["痞帅","自嘲"],confidence:0.85,source_url:"https://h5.ifeng.com/c/vivoArticle/v002eWYvI3zbFGhljhBnDT5oa6JIazO5O6vbiOurOwAHnEs__"},
+{id:"q0017",text:"我痞吗兄弟",type:"口头禅",scene:"连麦互动时接梗（「我痞吗」的变体）",platform:"抖音",date:"2025",tags:["痞帅","接梗"],confidence:0.85,source_url:"https://h5.ifeng.com/c/vivoArticle/v002eWYvI3zbFGhljhBnDT5oa6JIazO5O6vbiOurOwAHnEs__"},
+{id:"q0027",text:"你已经激怒了一头雄狮",type:"名场面",scene:"决斗场撞车职业五冠王小豪，放狠话后得知对方身份秒变脸，得名「小豪杀手」",platform:"抖音直播",date:"2023",tags:["放狠话","雄狮","小豪杀手","变脸"],confidence:0.85,source_url:"https://h5.ifeng.com/c/vivoArticle/v002eWYvI3zbFGhljhBnDT5oa6JIazO5O6vbiOurOwAHnEs__"},
+{id:"q0028",text:"包变脸的老弟",type:"口头禅",scene:"嘴硬后被打脸、当场秒变脸时的系列口头禅，口语中常省作「包变脸的」",platform:"抖音直播",date:"待考",tags:["变脸","嘴硬","系列口头禅"],confidence:0.8,source_url:"https://www.woshipm.com/share/6262297.html"},
+{id:"q0029",text:"无恐惧之人",type:"名场面",scene:"发视频回应粉丝要求露脸玩恐怖游戏，配文「无恐惧之人」，随后被反差整活（二创反讽作「包恐惧之人」）",platform:"抖音",date:"2024-01",tags:["恐怖游戏","自信","反差"],confidence:0.85,source_url:"https://m.baike.com/wiki/coke%E8%80%81%E5%B8%88/7327960659832356904"},
+{id:"q0030",text:"不好意思，有点帅到你们了",type:"口头禅",scene:"颜值类视频与自拍的招牌式配文台词",platform:"抖音",date:"2023-10",tags:["痞帅","颜值","自信"],confidence:0.8,source_url:"https://www.douyin.com/video/7285593986595605820"},
+{id:"q0003",text:"小猫老弟",type:"称号",scene:"「喜欢吗，老弟」的网友空耳版本，后成为外号（称号，非语录本体）",platform:"网络二创",date:"2023",tags:["空耳","外号"],confidence:0.9,source_url:"https://h5.ifeng.com/c/vivoArticle/v002eWYvI3zbFGhljhBnDT5oa6JIazO5O6vbiOurOwAHnEs__"},
+{id:"q0024",text:"抖一颜",type:"称号",scene:"网友把他的卡点视频弹幕压缩成的称号，后本人也用来自称",platform:"网络二创",date:"2025",tags:["称号"],confidence:0.85,source_url:"https://h5.ifeng.com/c/vivoArticle/v002eWYvI3zbFGhljhBnDT5oa6JIazO5O6vbiOurOwAHnEs__"},
+{id:"q0025",text:"蒋是姓帅是命",type:"称号",scene:"《OK了老铁们》第二季中被焊死的说法（粉丝/节目共创梗）",platform:"综艺",date:"2025",tags:["称号","粉丝梗"],confidence:0.8,source_url:"https://weibo.com/2239402020/RfH1GgvZa"},
+{id:"q0031",text:"痞牛",type:"称号",scene:"电影《牛来》角色被撞脸，他不避讳反把头像换成牛来，自称解锁「痞牛」形态",platform:"网络二创",date:"2025",tags:["撞脸","痞牛","头像"],confidence:0.75,source_url:"https://weibo.com/2239402020/RfH1GgvZa"},
+{id:"q0032",text:"保底机制",type:"称号",scene:"粉丝对「不管什么事总能随机触发意料之外名场面」这一体质的设定称呼，本页按钮名即来源于此",platform:"网络二创",date:"2025",tags:["粉丝梗","保底机制"],confidence:0.8,source_url:"https://weibo.com/2239402020/RfH1GgvZa"}
+];
+
+const $=id=>document.getElementById(id);
+const quoteEl=$("quote"),card=$("card"),proof=$("proof");
+let current=null,lastId=null;
+
+function show(q){
+  current=q;
+  quoteEl.textContent=q.text;
+  $("qtype").textContent=q.type;
+  const ok=$("qok");
+  if(q.type==="称号"){ok.textContent="◆ 称号梗";ok.className="chip warn";}
+  else{ok.textContent="✔ 已核实";ok.className="chip ok";}
+  $("qconf").textContent=q.confidence.toFixed(2);
+  $("p-scene").textContent=q.scene;
+  $("p-plat").textContent=`${q.platform} · ${q.date}`;
+  const a=$("p-src");a.href=q.source_url;a.textContent=q.source_url;
+  $("p-tags").textContent=q.tags.map(t=>"#"+t).join("　");
+  // 动画
+  quoteEl.classList.remove("glitch");card.classList.remove("hit");
+  void quoteEl.offsetWidth;
+  quoteEl.classList.add("glitch");card.classList.add("hit");
+  history.replaceState(null,"","#"+q.id);
+}
+function randomQuote(){
+  let pool=QUOTES;
+  if(pool.length>1){do{current=pool[Math.floor(Math.random()*pool.length)];}while(current.id===lastId);}
+  else current=pool[0];
+  lastId=current.id;
+  show(current);
+}
+
+$("fire").onclick=()=>{randomQuote();proof.classList.remove("open");$("proofBtn").textContent="🔍 考据一下";};
+$("proofBtn").onclick=()=>{
+  proof.classList.toggle("open");
+  $("proofBtn").textContent=proof.classList.contains("open")?"🔍 收起考据":"🔍 考据一下";
+};
+function toast(msg){const t=$("toast");t.textContent=msg;t.classList.add("show");setTimeout(()=>t.classList.remove("show"),1600);}
+$("copy").onclick=async()=>{try{await navigator.clipboard.writeText(current.text);toast("已复制："+current.text.slice(0,14));}catch(e){toast("复制失败，手动选中文本吧");}};
+$("shareBtn").onclick=async()=>{const url=location.origin+location.pathname+"#"+current.id;try{await navigator.clipboard.writeText(url);toast("分享链接已复制");}catch(e){toast("复制失败");}};
+document.addEventListener("keydown",e=>{if(e.code==="Space"&&e.target===document.body){e.preventDefault();randomQuote();}});
+
+// 分类筛选 + 网格
+const types=[...new Set(QUOTES.map(q=>q.type))];
+const filters=$("filters");
+["全部",...types].forEach((t,i)=>{
+  const b=document.createElement("button");
+  b.className="fchip"+(i===0?" on":"");b.textContent=t;
+  b.onclick=()=>{
+    document.querySelectorAll(".fchip").forEach(x=>x.classList.remove("on"));b.classList.add("on");
+    document.querySelectorAll(".mini").forEach(m=>{
+      m.classList.toggle("hidden",t!=="全部"&&m.dataset.type!==t);
+    });
+  };
+  filters.appendChild(b);
+});
+const grid=$("grid");
+QUOTES.forEach(q=>{
+  const d=document.createElement("div");
+  d.className="mini";d.dataset.type=q.type;
+  d.innerHTML=`<div class="t">${q.text}</div>
+    <div class="f"><span>${q.type}</span><span>${q.platform}</span><span>置信 ${q.confidence.toFixed(2)}</span></div>`;
+  d.onclick=()=>{show(q);window.scrollTo({top:0,behavior:"smooth"});};
+  grid.appendChild(d);
+});
+
+// 弹幕
+const lane=$("danmaku");
+const dmTexts=QUOTES.map(q=>q.text);
+for(let i=0;i<7;i++){
+  const s=document.createElement("span");
+  s.className="dm";
+  s.innerHTML=dmTexts.map(t=>`　<b>${t}</b>`).join("");
+  s.style.top=(6+i*13)+"%";
+  s.style.animationDuration=(38+Math.random()*30)+"s";
+  s.style.animationDelay=(-Math.random()*40)+"s";
+  lane.appendChild(s);
+}
+
+// 统计 & 初始化
+$("total").textContent=QUOTES.length;$("s-total").textContent=QUOTES.length;
+$("s-types").textContent=types.length;
+$("s-viral").textContent=QUOTES.filter(q=>q.tags.includes("出圈梗")).length;
+const init=location.hash.slice(1);
+const hit=QUOTES.find(q=>q.id===init);
+show(hit||QUOTES[0]);lastId=(hit||QUOTES[0]).id;
+</script>
+</body>
+</html>

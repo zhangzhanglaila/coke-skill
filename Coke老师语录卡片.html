@@ -1,36 +1,45 @@
 <!DOCTYPE html>
 <html lang="zh-CN"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Coke老师语录卡片</title>
+<title>雷霆语言系统 · Coke老师语录卡片</title>
 <style>
-  :root { --bg:#f7f7f5; --card:#ffffff; --ink:#1c1c1a; --muted:#8a8a80; --line:#e6e4de; --accent:#c0392b; }
+  :root { --bg:#0e0e13; --card:#1c1c28; --ink:#f2f2f5; --muted:#8b8b98;
+           --line:rgba(255,255,255,.08); --red:#FE2C55; --cyan:#25F4EE; }
   * { box-sizing:border-box; }
-  body { margin:0; padding:32px 20px 64px; background:var(--bg); color:var(--ink);
-         font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif; }
-  header { max-width:860px; margin:0 auto 28px; }
-  h1 { font-size:26px; margin:0 0 6px; letter-spacing:.5px; }
+  body { margin:0; padding:40px 20px 72px; background:var(--bg); color:var(--ink);
+         font-family:"PingFang SC","Microsoft YaHei",-apple-system,sans-serif; }
+  .glow { position:fixed; border-radius:50%; filter:blur(120px); opacity:.3; pointer-events:none; }
+  .glow.a { width:480px; height:480px; background:var(--red); top:-140px; left:-100px; }
+  .glow.b { width:420px; height:420px; background:var(--cyan); bottom:-120px; right:-80px; opacity:.18; }
+  header { position:relative; max-width:880px; margin:0 auto 30px; }
+  h1 { font-size:30px; margin:0 0 8px; letter-spacing:1px; font-weight:800;
+        background:linear-gradient(92deg,var(--red) 20%,#fff 50%,var(--cyan) 80%);
+        -webkit-background-clip:text; background-clip:text; color:transparent; }
   .sub { color:var(--muted); font-size:13px; }
-  .grid { max-width:860px; margin:0 auto; display:grid; gap:14px;
+  .grid { position:relative; max-width:880px; margin:0 auto; display:grid; gap:14px;
            grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); }
-  .card { background:var(--card); border:1px solid var(--line); border-radius:14px;
-           padding:18px 18px 14px; box-shadow:0 1px 2px rgba(0,0,0,.04); }
-  .quote { font-size:18px; line-height:1.6; font-weight:600; }
-  .quote::before { content:"“"; color:var(--accent); margin-right:2px; }
-  .quote::after { content:"”"; color:var(--accent); margin-left:2px; }
-  .scene { margin:8px 0 0; font-size:13px; color:#5a5a52; line-height:1.5; }
-  .meta { margin-top:12px; font-size:12px; color:var(--muted);
+  .card { background:linear-gradient(160deg,rgba(254,44,85,.08),rgba(28,28,40,.9) 45%,rgba(37,244,238,.06));
+           border:1px solid var(--line); border-radius:16px; padding:20px 20px 14px;
+           backdrop-filter:blur(8px); transition:transform .15s,border-color .2s; }
+  .card:hover { transform:translateY(-3px); border-color:rgba(254,44,85,.5); }
+  .quote { font-size:18px; line-height:1.55; font-weight:700; }
+  .quote::before { content:"“"; color:var(--red); margin-right:2px; }
+  .quote::after { content:"”"; color:var(--cyan); margin-left:2px; }
+  .scene { margin:10px 0 0; font-size:13px; color:#b9b9c6; line-height:1.6; }
+  .meta { margin-top:14px; font-size:12px; color:var(--muted);
            display:flex; gap:8px; align-items:center; flex-wrap:wrap; }
   .foot { margin-top:10px; padding-top:10px; border-top:1px dashed var(--line);
            font-size:12px; display:flex; gap:6px; flex-wrap:wrap; align-items:center; }
-  .tag { background:#f0efea; color:#6a6a60; border-radius:6px; padding:2px 6px; }
-  .badge { background:#fff4e5; color:#a8641a; border-radius:6px; padding:2px 6px; }
-  a { color:var(--accent); text-decoration:none; }
+  .tag { background:rgba(37,244,238,.1); color:var(--cyan); border-radius:6px; padding:2px 7px; }
+  .badge { background:rgba(245,181,99,.12); color:#f5b563; border-radius:6px; padding:2px 7px; }
+  a { color:var(--cyan); text-decoration:none; }
   .muted { color:var(--muted); }
 </style></head>
 <body>
+<div class="glow a"></div><div class="glow b"></div>
 <header>
-  <h1>Coke老师 · 语录卡片</h1>
-  <div class="sub">共 26 条 · 生成于 2026-09-22 · 每条均附出处，转载请保留来源</div>
+  <h1>⚡ 雷霆语言系统 · Coke老师语录卡片</h1>
+  <div class="sub">共 40 条 · 生成于 2026-10-01 · 每条均附出处，转载请保留来源</div>
 </header>
 <div class="grid">
     <article class="card">
@@ -56,12 +65,6 @@
       <p class='scene'>「喜欢吗，老弟」的网友空耳版本，后成为外号</p>
       <div class="meta"><span class="muted">称号 · 网络二创 · 2023</span> </div>
       <div class="foot"><span class='tag'>#空耳</span><span class='tag'>#外号</span> <a href='https://h5.ifeng.com/c/vivoArticle/v002eWYvI3zbFGhljhBnDT5oa6JIazO5O6vbiOurOwAHnEs__' target='_blank'>出处 ↗</a></div>
-    </article>
-    <article class="card">
-      <div class="quote">我嘞个骚刚啊</div>
-      <p class='scene'>直播展示纲手【侠隐江湖】连招时脱口而出</p>
-      <div class="meta"><span class="muted">口头禅 · 抖音直播 · 2023-10</span> </div>
-      <div class="foot"><span class='tag'>#惊叹</span><span class='tag'>#方言</span><span class='tag'>#出圈梗</span> <a href='https://shouyoujz.com/archives/78975' target='_blank'>出处 ↗</a></div>
     </article>
     <article class="card">
       <div class="quote">我痞吗</div>
@@ -118,10 +121,40 @@
       <div class="foot"><span class='tag'>#称号</span> <a href='https://h5.ifeng.com/c/vivoArticle/v002eWYvI3zbFGhljhBnDT5oa6JIazO5O6vbiOurOwAHnEs__' target='_blank'>出处 ↗</a></div>
     </article>
     <article class="card">
+      <div class="quote">你已经激怒了一头雄狮</div>
+      <p class='scene'>决斗场撞车职业五冠王选手小豪，开局操作轻松、解说丝毫不慌并放狠话，得知对方职业身份后秒变脸，因此得名「小豪杀手」</p>
+      <div class="meta"><span class="muted">名场面 · 抖音直播 · 2023</span> </div>
+      <div class="foot"><span class='tag'>#放狠话</span><span class='tag'>#雄狮</span><span class='tag'>#小豪杀手</span><span class='tag'>#变脸</span> <a href='https://h5.ifeng.com/c/vivoArticle/v002eWYvI3zbFGhljhBnDT5oa6JIazO5O6vbiOurOwAHnEs__' target='_blank'>出处 ↗</a></div>
+    </article>
+    <article class="card">
+      <div class="quote">无恐惧之人</div>
+      <p class='scene'>发视频回应粉丝要求他露脸玩恐怖游戏，配文「无恐惧之人」，玩之前各种自信语录，随后被反差整活</p>
+      <div class="meta"><span class="muted">名场面 · 抖音 · 2024-01</span> </div>
+      <div class="foot"><span class='tag'>#恐怖游戏</span><span class='tag'>#自信</span><span class='tag'>#反差</span> <a href='https://m.baike.com/wiki/coke%E8%80%81%E5%B8%88/7327960659832356904' target='_blank'>出处 ↗</a></div>
+    </article>
+    <article class="card">
       <div class="quote">蒋是姓帅是命</div>
       <p class='scene'>《OK了老铁们》第二季中被焊死的说法</p>
       <div class="meta"><span class="muted">称号 · 综艺 · 2025</span> </div>
       <div class="foot"><span class='tag'>#称号</span><span class='tag'>#粉丝梗</span> <a href='https://weibo.com/2239402020/RfH1GgvZa' target='_blank'>出处 ↗</a></div>
+    </article>
+    <article class="card">
+      <div class="quote">包变脸的老弟</div>
+      <p class='scene'>嘴硬后被打脸、当场秒变脸时的系列口头禅，口语中常省作「包变脸的」</p>
+      <div class="meta"><span class="muted">口头禅 · 抖音直播 · 待考</span> </div>
+      <div class="foot"><span class='tag'>#变脸</span><span class='tag'>#嘴硬</span><span class='tag'>#系列口头禅</span> <a href='https://www.woshipm.com/share/6262297.html' target='_blank'>出处 ↗</a></div>
+    </article>
+    <article class="card">
+      <div class="quote">不好意思，有点帅到你们了</div>
+      <p class='scene'>颜值类视频与自拍的招牌式配文台词</p>
+      <div class="meta"><span class="muted">口头禅 · 抖音 · 2023-10</span> </div>
+      <div class="foot"><span class='tag'>#痞帅</span><span class='tag'>#颜值</span><span class='tag'>#自信</span> <a href='https://www.douyin.com/video/7285593986595605820' target='_blank'>出处 ↗</a></div>
+    </article>
+    <article class="card">
+      <div class="quote">保底机制</div>
+      <p class='scene'>粉丝对他「不管什么事总能随机触发意料之外名场面」这一特性的设定称呼，也叫「流量保底机制」</p>
+      <div class="meta"><span class="muted">称号 · 网络二创 · 2025</span> </div>
+      <div class="foot"><span class='tag'>#粉丝梗</span><span class='tag'>#保底机制</span><span class='tag'>#名场面体质</span> <a href='https://weibo.com/2239402020/RfH1GgvZa' target='_blank'>出处 ↗</a></div>
     </article>
     <article class="card">
       <div class="quote">我嘞个大刚啊</div>
@@ -134,6 +167,12 @@
       <p class='scene'>晚上戴墨镜上车前对着镜头问</p>
       <div class="meta"><span class="muted">短视频 · 抖音 · 2025</span> <span class='badge warn'>待核实</span></div>
       <div class="foot"><span class='tag'>#痞帅</span><span class='tag'>#自问自答</span> <a href='https://www.douyin.com/shipin/7644029833692956681' target='_blank'>出处 ↗</a></div>
+    </article>
+    <article class="card">
+      <div class="quote">痞牛</div>
+      <p class='scene'>电影《牛来》角色被网友说与他撞脸，他不避讳反把头像换成牛来，自称解锁「痞牛」形态</p>
+      <div class="meta"><span class="muted">称号 · 网络二创 · 2025</span> </div>
+      <div class="foot"><span class='tag'>#撞脸</span><span class='tag'>#痞牛</span><span class='tag'>#头像</span> <a href='https://weibo.com/2239402020/RfH1GgvZa' target='_blank'>出处 ↗</a></div>
     </article>
     <article class="card">
       <div class="quote">美女们，那个，我们三个男生 vs 你们六个女孩怎么样？凶多吉少</div>
@@ -152,6 +191,36 @@
       <p class='scene'>粉丝见面会前被问担心什么</p>
       <div class="meta"><span class="muted">采访 · 线下活动 · 2024</span> <span class='badge warn'>待核实</span></div>
       <div class="foot"><span class='tag'>#自嘲</span><span class='tag'>#线下</span> <a href='https://weibo.com/7740008143/RfjvDevFf' target='_blank'>出处 ↗</a></div>
+    </article>
+    <article class="card">
+      <div class="quote">coke可以给你除了金钱以外的任何帮助</div>
+      <p class='scene'>连麦互动中一本正经「大方」的整活金句</p>
+      <div class="meta"><span class="muted">直播 · 抖音直播 · 2026-03</span> <span class='badge warn'>待核实</span></div>
+      <div class="foot"><span class='tag'>#整活</span><span class='tag'>#连麦</span><span class='tag'>#金钱</span> <a href='https://www.bilibili.com/video/BV1GEP1zkEwz/' target='_blank'>出处 ↗</a></div>
+    </article>
+    <article class="card">
+      <div class="quote">我嘞个骚刚啊</div>
+      <p class='scene'>直播展示纲手【侠隐江湖】连招时脱口而出</p>
+      <div class="meta"><span class="muted">口头禅 · 抖音直播 · 2023-10</span> <span class='badge warn'>待核实</span></div>
+      <div class="foot"><span class='tag'>#惊叹</span><span class='tag'>#方言</span><span class='tag'>#出圈梗</span><span class='tag'>#归属争议</span> <a href='https://shouyoujz.com/archives/78975' target='_blank'>出处 ↗</a></div>
+    </article>
+    <article class="card">
+      <div class="quote">凡人是无法欣赏神的颜值的</div>
+      <p class='scene'>颜值类整活中以「神」自居的自嘲金句</p>
+      <div class="meta"><span class="muted">口头禅 · 抖音直播 · 待考</span> <span class='badge warn'>待核实</span></div>
+      <div class="foot"><span class='tag'>#颜值</span><span class='tag'>#自恋</span><span class='tag'>#整活</span> <a href='https://www.bilibili.com/video/BV1N7puzGELD/' target='_blank'>出处 ↗</a></div>
+    </article>
+    <article class="card">
+      <div class="quote">我确实没有追到过女孩，因为都是她们来追我</div>
+      <p class='scene'>连麦聊天被问情感经历时的自信发言</p>
+      <div class="meta"><span class="muted">直播 · 抖音直播 · 2025-09</span> <span class='badge warn'>待核实</span></div>
+      <div class="foot"><span class='tag'>#情感</span><span class='tag'>#自恋</span><span class='tag'>#连麦</span> <a href='https://www.bilibili.com/video/BV1EwnvzhEcY/' target='_blank'>出处 ↗</a></div>
+    </article>
+    <article class="card">
+      <div class="quote">Hey, girl!</div>
+      <p class='scene'>连麦女主播刚接通时的英文装帅开场白（同批切片另有「我昨天刚发射」、与蜜柚连麦、剥虾小蒋等片段）</p>
+      <div class="meta"><span class="muted">连麦PK · 抖音直播 · 2025-06</span> <span class='badge warn'>待核实</span></div>
+      <div class="foot"><span class='tag'>#连麦PK</span><span class='tag'>#英文开场白</span><span class='tag'>#装帅</span> <a href='https://www.bilibili.com/video/BV14VKPzQEgg/' target='_blank'>出处 ↗</a></div>
     </article>
     <article class="card">
       <div class="quote">空腹来的</div>
@@ -182,6 +251,30 @@
       <p class='scene'>直播间高频洗脑复读</p>
       <div class="meta"><span class="muted">口头禅 · 抖音直播 · 2023</span> <span class='badge warn'>待核实</span></div>
       <div class="foot"><span class='tag'>#口头禅</span><span class='tag'>#洗脑</span> <a href='https://www.douyin.com/shipin/7644029833692956681' target='_blank'>出处 ↗</a></div>
+    </article>
+    <article class="card">
+      <div class="quote">神也会吃独食</div>
+      <p class='scene'>直播中的临场碎句接梗</p>
+      <div class="meta"><span class="muted">直播 · 抖音直播 · 2025-06</span> <span class='badge warn'>待核实</span></div>
+      <div class="foot"><span class='tag'>#接梗</span><span class='tag'>#碎句</span> <a href='https://www.bilibili.com/video/BV14VKPzQEgg/' target='_blank'>出处 ↗</a></div>
+    </article>
+    <article class="card">
+      <div class="quote">好身材，吃出来，安排！</div>
+      <p class='scene'>直播中模仿带货广告腔的接梗</p>
+      <div class="meta"><span class="muted">直播 · 抖音直播 · 2025-06</span> <span class='badge warn'>待核实</span></div>
+      <div class="foot"><span class='tag'>#接梗</span><span class='tag'>#带货腔</span> <a href='https://www.bilibili.com/video/BV14VKPzQEgg/' target='_blank'>出处 ↗</a></div>
+    </article>
+    <article class="card">
+      <div class="quote">比巴掌先来的是姐姐的香气</div>
+      <p class='scene'>与女主播连麦时的土味情话式接梗</p>
+      <div class="meta"><span class="muted">连麦PK · 抖音直播 · 2025-06</span> <span class='badge warn'>待核实</span></div>
+      <div class="foot"><span class='tag'>#土味情话</span><span class='tag'>#连麦</span><span class='tag'>#接梗</span> <a href='https://www.bilibili.com/video/BV14VKPzQEgg/' target='_blank'>出处 ↗</a></div>
+    </article>
+    <article class="card">
+      <div class="quote">虎啊，你不说头发还好，你越说，他们越要往那上面整你</div>
+      <p class='scene'>和斩虎（虎）连麦时拿对方发型开涮</p>
+      <div class="meta"><span class="muted">连麦PK · 抖音直播 · 2025-06</span> <span class='badge warn'>待核实</span></div>
+      <div class="foot"><span class='tag'>#斩虎</span><span class='tag'>#发型</span><span class='tag'>#接梗</span> <a href='https://www.bilibili.com/video/BV14VKPzQEgg/' target='_blank'>出处 ↗</a></div>
     </article>
     <article class="card">
       <div class="quote">如果说宝贝们吃腥了、吃膻了，我们都给大家做包赔的</div>

@@ -11,3 +11,6 @@ desktop.ini
 # Misc
 *.log
 .tmp/
+
+# WorkBuddy agent workspace memory (not for public repo)
+.workbuddy/

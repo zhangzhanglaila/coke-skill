@@ -1,3 +1,7 @@
+<div align="center">
+  <img src="assets/banner.svg" alt="雷霆语言系统 · coke-skill" width="100%">
+</div>
+
 # 🐱 coke-skill · 让 AI 变成「Coke老师」陪你聊天
 
 装好后对 AI 说一句「扮演 coke」，它就用 Coke老师 痞帅抽象的语气跟你对话——叫你老弟、输了甩「汗流浃背了吧」、装帅先来一句 "Hey, girl!"；语气全部来自一份 **40 条真实语录的考据语料**，每处化用都有原句可循。顺带还能严谨考据每句梗的出处。
@@ -6,6 +10,12 @@
 ![Mode](https://img.shields.io/badge/mode-persona%20first-F97316?style=for-the-badge)
 ![License](https://img.shields.io/badge/license-MIT-DC2626?style=for-the-badge)
 ![Quotes](https://img.shields.io/badge/voice%20corpus-40%20%7C%2020%20verified-1D4ED8?style=for-the-badge)
+
+## ⚡ [在线体验：雷霆语言系统语录机](./demo/index.html)
+
+> 点一下「触发保底机制」，随机爆一条 Coke 老师原话；再点「考据」，场景、出处、置信度全摊开。弹幕飘屏、空格连发、一键复制——全部数据来自本仓库 20 条已核实语录，不编造。
+>
+> 💡 GitHub Pages 开启后（Settings → Pages → 分支选 `main`），在线地址即 `https://zhangzhanglaila.github.io/coke-skill/demo/`。
 
 ---
 
@@ -121,6 +131,10 @@ coke-skill/
 │   └── openai.yaml             # Codex/OpenAI 界面元数据
 ├── coke-corpus/
 │   └── quotes.jsonl            # 人设语气依据 & 考据数据源（40 条，每行一条 JSON）
+├── demo/
+│   └── index.html              # ⚡ 雷霆语言系统语录机（单文件、零依赖，可直接开 GitHub Pages）
+├── assets/
+│   └── banner.svg              # README 顶部霓虹横幅
 ├── Coke老师语录合集.md          # 全量人类可读版（40 条）
 ├── 公开版-语录合集.md           # 对外分享版（仅媒体强来源，21 条）
 ├── Coke老师语录卡片.html        # 展示卡片
